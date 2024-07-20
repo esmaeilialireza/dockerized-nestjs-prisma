@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: alireza
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: foods
+    ports:
+      - '5432:5432'
+
+  foods-backend:
+    build: .
+    restart: always
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env
+    depends_on:
+      - postgres
